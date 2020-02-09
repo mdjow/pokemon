@@ -1,29 +1,41 @@
 <div class="container main-detail">
   <div
     class="animation-transition"
-    [style.height]="load ? '0' : 'auto'"
-    [style.opacity]="load ? '0' : '1'"
-    [style.visibility]="load ? 'hidden' : 'visible'">
+    [style.height]="isBusyHeight"
+    [style.opacity]="isBusyOpacity"
+    [style.visibility]="isBusyVisibility">
     <div *ngIf="myPoke" class="row no-gutters">
-      <div class="col-md-6">
-        <img [src]="myPoke.img" class="pokemon-img" [alt]="myPoke.name" (load)="onLoad()"/>
+      <div class="col-md-4">
+        <img
+          [src]="myPoke.img"
+          class="pokemon-img"
+          [alt]="myPoke.name"
+          (error)="onErrorImg(myPoke)"
+          (load)="onLoadImg()"/>
       </div>
-      <div class="col-md-6">
-        <div class="card-body">
-          <h5 class="card-title">{{myPoke.name | uppercase}}</h5>
-          <div class="pokemon-position"> {{myPoke.id}} </div>
-          <div class="pokemon-name"> {{myPoke.name}} </div>
-          <div class="pokemon-name"> {{myPoke.height}} </div>
-          <div class="pokemon-weight"> {{myPoke.weight}} </div>
-        </div>
-      </div>
+      <ul class="p-3 list-group list-group-flush col-md-8">
+        <li class="list-group-item">
+          <strong>{{ myPoke.name | uppercase }}</strong>
+          <fa-icon
+            class="ic-favor"
+            [ngClass]="{
+              'favor': myPoke.isFavorite,
+              'no-favor': !myPoke.isFavorite
+            }"
+            (click)="favoritePoke()"
+            [icon]="faStar">
+          </fa-icon>
+        </li>
+        <li class="list-group-item">Altura: {{ myPoke.height }}</li>
+        <li class="list-group-item">Peso: {{ myPoke.weight }}</li>
+      </ul>
     </div>
   </div>
 
   <div
     class="spinner-container animation-load-transition"
-    [style.opacity]="!load ? '0' : '1'"
-    [style.visibility]="!load ? 'hidden' : 'visible'"
+    [style.opacity]="isBusyLoadOpacity"
+    [style.visibility]="isBusyLoadVisibility"
   >
     <img class="spinner-load" src="assets/img/ball.png">
     <h3 class="info">{{name}}, eu escolho você!</h3>

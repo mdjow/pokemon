@@ -1,7 +1,5 @@
-import { Action } from "@ngrx/store";
-import { Pokemon, PokeDetail } from "./../models/pokemon";
+import { Pokemon, PokeDetail } from "./../models/pokemon.models";
 import * as PokemonActions from "./../actions/pokemon";
-
 
 export interface State {
   size: number;

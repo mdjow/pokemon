@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { MatTableDataSource} from "@angular/material/table";
-import { Observable } from "rxjs";
-import { Store } from "@ngrx/store";
 import { trigger, state, style, transition, animate } from "@angular/animations";
+import { MatTableDataSource} from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs";
 
-import { State } from "./../../reducers";
-import { PokemonObj } from "./../../models/pokemon";
+import { State } from "./../../reducers/pokemon.reducer";
+import { PokemonObj } from "./../../models/pokemon.models";
 import * as PokemonActions from "./../../actions/pokemon";
 
 @Component({
@@ -23,18 +23,19 @@ import * as PokemonActions from "./../../actions/pokemon";
       state("expanded", style({
         height: "*"
       })),
-      transition("expanded <=> collapsed", animate("225ms cubic-bezier(0.4, 0.0, 0.2, 1)")),
+      transition("expanded <=> collapsed",
+        animate("225ms cubic-bezier(0.4, 0.0, 0.2, 1)")
+      ),
     ]),
   ],
 })
 export class PokemonListComponent implements OnInit {
   expandedElement: State | null;
-
   init: Observable<State>;
   load: boolean;
   data: PokemonObj[] = [];
   dataSource: MatTableDataSource<PokemonObj>;
-  displayedColumns = ["id", "name", "url"];
+  displayedColumns = ["id", "name"];
   paginatorSize: number[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -75,6 +76,7 @@ export class PokemonListComponent implements OnInit {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

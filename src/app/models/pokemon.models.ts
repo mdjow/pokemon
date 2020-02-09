@@ -23,16 +23,14 @@ export interface PokeDetail {
   name: string;
   order: number;
   species: Pokemon;
-  sprites: any[];
+  sprites: any;
   stats: any[];
   types: any[];
   weight: number;
   img: string;
+  isFavorite: Boolean;
 }
 
 export class PokemonObj {
-  private img: string;
-  constructor(private id: number, private name: string, private url: string) {
-    this.img = `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
-  };
+  constructor(private id: number, private name: string, private url: string) {};
 }

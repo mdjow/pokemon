@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from "@angular/core";
+import { faStar } from "@fortawesome/free-solid-svg-icons"
+import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 
-import { Store } from "@ngrx/store";
-import { State } from "./../../reducers";
-import { PokeDetail } from "./../../models/pokemon";
+import { State } from "./../../reducers/pokemon.reducer";
+import { PokeDetail } from "./../../models/pokemon.models";
 import * as PokemonActions from "./../../actions/pokemon";
-
 
 @Component({
   selector: "app-pokemon-detail",
@@ -18,17 +18,23 @@ export class PokemonDetailComponent implements OnInit {
 
   init: Observable<State>;
   myPoke: PokeDetail | null;
-  load: boolean;;
+  faStar = faStar;
 
-  constructor(
-    private store: Store<{data: State}>
-  ) {
+  isBusy: boolean;
+  get isBusyHeight() { return this.isBusy ? "0" : "auto" };
+  get isBusyOpacity() { return this.isBusy ? "0" : "1" };
+  get isBusyVisibility() { return this.isBusy ? "hidden" : "visible"};
+
+  get isBusyLoadOpacity() { return !this.isBusy ? "0" : "1" };
+  get isBusyLoadVisibility() { return !this.isBusy ? "hidden" : "visible"};
+
+  constructor(private store: Store<{data: State}>) {
     this.init = store.select(state => state.data);
   }
 
   ngOnInit() {
     this.myPoke = null;
-    this.load = true;
+    this.isBusy = true;
 
     this.store.dispatch(new PokemonActions.GetPokemon(this.id));
 
@@ -39,7 +45,20 @@ export class PokemonDetailComponent implements OnInit {
     })
   }
 
-  onLoad() {
-    this.load = false;
+  favoritePoke() {
+    this.myPoke = { ...this.myPoke, isFavorite: !this.myPoke.isFavorite };
+    this.store.dispatch(new PokemonActions.FavoritePokemon(this.id));
+  }
+
+  onLoadImg() {
+    this.isBusy = false;
+  }
+
+  onErrorImg(ref: PokeDetail) {
+    this.isBusy = false;
+
+    ref.img =
+      ref.sprites.front_default ?
+        ref.sprites.front_default : "assets/img/pokemon.png";
   }
 }

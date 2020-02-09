@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { RouterTestingModule } from "@angular/router/testing";
+import { StoreModule } from "@ngrx/store";
 
 import { PokemonDetailComponent } from "./pokemon-detail.component";
-import { StoreModule } from '@ngrx/store';
-import { reducer } from 'src/app/reducers';
-import { PokemonService } from 'src/app/services/pokemon.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from "@angular/router/testing";
+import { reducer } from "src/app/reducers";
+import { PokemonService } from "src/app/services/pokemon.service";
 
 describe("PokemonDetailComponent", () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -16,7 +16,7 @@ describe("PokemonDetailComponent", () => {
         data: reducer
       }),
     ],
-    providers: [ PokemonService ]
+    providers: [ PokemonService ],
   }));
 
   let component: PokemonDetailComponent;
@@ -24,7 +24,7 @@ describe("PokemonDetailComponent", () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PokemonDetailComponent ]
+      declarations: [ PokemonDetailComponent ],
     })
     .compileComponents();
   }));

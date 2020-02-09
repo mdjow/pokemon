@@ -1,4 +1,4 @@
-import { PokemonModule } from "./pokemon";
+import { PokemonModule } from "./pokemon.module";
 
 describe("PokemonModule", () => {
   let pokemonModule: PokemonModule;

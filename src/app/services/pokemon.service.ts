@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { retry } from "rxjs/operators";
 
-import { PokeDetail, Init } from "./../models/pokemon";
+import { PokeDetail, Init } from "./../models/pokemon.models";
 
 @Injectable()
 export class PokemonService {
@@ -28,5 +28,15 @@ export class PokemonService {
     return this.http.get<PokeDetail>(this.pokeURL + id + "/").pipe(
       retry(3),
     );
+  }
+
+  favoritePokemon(id: number): Observable<Boolean> {
+    if (!localStorage.getItem(id.toString())) {
+      localStorage.setItem(id.toString(), "true");
+    } else {
+      localStorage.removeItem(id.toString());
+    }
+
+    return Observable.create(true);
   }
 }

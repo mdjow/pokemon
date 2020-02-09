@@ -29,7 +29,6 @@ export class PokemonEffects {
     ))
   )
 
-
   @Effect() getPokemons$: Observable<Action> = this.actions$.pipe(
     ofType<PokemonActions.GetPokemons>(
       PokemonActions.GET_POKEMONS
@@ -44,7 +43,6 @@ export class PokemonEffects {
     ))
   )
 
-
   @Effect() getPokemon$: Observable<Action> = this.actions$.pipe(
     ofType<PokemonActions.GetPokemon>(
       PokemonActions.GET_POKEMON
@@ -53,11 +51,26 @@ export class PokemonEffects {
       map(
         item => new PokemonActions.GetPokemonDone({
           ...item,
+          isFavorite: localStorage.getItem(item.id.toString()) ? true : false,
           img: `https://pokeres.bastionbot.org/images/pokemon/${item.id}.png`
         })
       ),
       catchError(error =>
         observableOf(new PokemonActions.GetPokemonsFailure({ error }))
+      )
+    ))
+  )
+
+  @Effect() favoritePokemon$: Observable<Action> = this.actions$.pipe(
+    ofType<PokemonActions.FavoritePokemon>(
+      PokemonActions.FAVORITE_POKEMON
+    ),
+    switchMap(action => this.pokemonService.favoritePokemon(action.payload).pipe(
+      map(
+        item => new PokemonActions.FavoritePokemonDone(item)
+      ),
+      catchError(error =>
+        observableOf(new PokemonActions.FavoritePokemonFailure({ error }))
       )
     ))
   )

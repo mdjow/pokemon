@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { NotFoundComponent } from "../componets/not-found";
+import { NotFoundComponent } from "../componets/not-found/not-found.component";
 
 const appRoutes: Routes = [
   { path: "", redirectTo: "/pokemons", pathMatch: "full" },
@@ -15,6 +15,5 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(appRoutes)
   ]
-
 })
 export class AppRoutingModule { }

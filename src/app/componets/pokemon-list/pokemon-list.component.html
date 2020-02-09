@@ -1,11 +1,8 @@
 <div class="container-fluid">
   <div [hidden]="load">
-    <mat-progress-spinner
-      class="spinner-load"
-      color="primary"
-      mode="indeterminate"
-      value="50"
-    ></mat-progress-spinner>
+    <div class="spinner-load spinner-grow text-success" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
     <h2 class="info">Estamos reunindo todos os pokémons, aguarde...</h2>
   </div>
 
@@ -35,12 +32,7 @@
 
           <ng-container matColumnDef="name">
             <th *matHeaderCellDef mat-sort-header> Nome </th>
-            <td *matCellDef="let pokemon">{{ pokemon.name }} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="url">
-            <th *matHeaderCellDef> Url </th>
-            <td *matCellDef="let pokemon"> {{ pokemon.url}} </td>
+            <td *matCellDef="let pokemon" class="pokemon-name">{{ pokemon.name }} </td>
           </ng-container>
 
           <ng-container matColumnDef="expandedDetail">
@@ -63,7 +55,11 @@
             [class.expanded-row]="expandedElement === row"
             (click)="selectRow(row)">
           </tr>
-          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: ['expandedDetail']"
+            class="detail-row">
+          </tr>
         </table>
         <mat-paginator
           [pageSizeOptions]="paginatorSize"
