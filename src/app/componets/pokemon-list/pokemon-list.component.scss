@@ -1,0 +1,43 @@
+table {
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+td.mat-cell {
+  border: 0;
+}
+
+.spinner-load {
+  margin: 0 auto;
+  margin-top: 20%;
+}
+
+.info {
+  text-align: center;
+}
+
+.pokemon-detail {
+  overflow: hidden;
+  display: flex;
+  width: 100%;
+}
+
+.detail {
+  padding: 0;
+  border: none;
+}
+
+.detail:hover {
+  background-color: white;
+}
+
+app-pokemon-detail {
+  width: 100%;
+}

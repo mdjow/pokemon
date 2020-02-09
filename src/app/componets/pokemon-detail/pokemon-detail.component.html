@@ -1,0 +1,32 @@
+<div class="container main-detail">
+  <div
+    class="animation-transition"
+    [style.height]="load ? '0' : 'auto'"
+    [style.opacity]="load ? '0' : '1'"
+    [style.visibility]="load ? 'hidden' : 'visible'">
+    <div *ngIf="myPoke" class="row no-gutters">
+      <div class="col-md-6">
+        <img [src]="myPoke.img" class="pokemon-img" [alt]="myPoke.name" (load)="onLoad()"/>
+      </div>
+      <div class="col-md-6">
+        <div class="card-body">
+          <h5 class="card-title">{{myPoke.name | uppercase}}</h5>
+          <div class="pokemon-position"> {{myPoke.id}} </div>
+          <div class="pokemon-name"> {{myPoke.name}} </div>
+          <div class="pokemon-name"> {{myPoke.height}} </div>
+          <div class="pokemon-weight"> {{myPoke.weight}} </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="spinner-container animation-load-transition"
+    [style.opacity]="!load ? '0' : '1'"
+    [style.visibility]="!load ? 'hidden' : 'visible'"
+  >
+    <img class="spinner-load" src="assets/img/ball.png">
+    <h3 class="info">{{name}}, eu escolho você!</h3>
+  </div>
+</div>
+

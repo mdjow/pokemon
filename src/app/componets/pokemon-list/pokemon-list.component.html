@@ -1,0 +1,75 @@
+<div class="container-fluid">
+  <div [hidden]="load">
+    <mat-progress-spinner
+      class="spinner-load"
+      color="primary"
+      mode="indeterminate"
+      value="50"
+    ></mat-progress-spinner>
+    <h2 class="info">Estamos reunindo todos os pokémons, aguarde...</h2>
+  </div>
+
+  <div [hidden]="!load">
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Encontre seu Pokémon</label>
+          <input
+            type="email"
+            class="form-control"
+            id="exampleInputEmail1"
+            (keyup)="applyFilter($event.target.value)"
+            aria-describedby="emailHelp">
+        </div>
+        <table
+          mat-table
+          class="table table-hover"
+          [dataSource]="dataSource"
+          multiTemplateDataRows
+          matSort
+        >
+          <ng-container matColumnDef="id">
+            <th *matHeaderCellDef mat-sort-header> ID </th>
+            <td *matCellDef="let pokemon">{{ pokemon.id }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th *matHeaderCellDef mat-sort-header> Nome </th>
+            <td *matCellDef="let pokemon">{{ pokemon.name }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="url">
+            <th *matHeaderCellDef> Url </th>
+            <td *matCellDef="let pokemon"> {{ pokemon.url}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="expandedDetail">
+            <td *matCellDef="let pokemon" [attr.colspan]="3" class="detail">
+              <div
+                class="pokemon-detail"
+                [@detailExpand]="pokemon == expandedElement ? 'expanded' : 'collapsed'">
+                <app-pokemon-detail
+                  *ngIf="pokemon == expandedElement"
+                  [name]="pokemon.name"
+                  [id]="pokemon.id"
+                ></app-pokemon-detail>
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns;"
+            [class.expanded-row]="expandedElement === row"
+            (click)="selectRow(row)">
+          </tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+        </table>
+        <mat-paginator
+          [pageSizeOptions]="paginatorSize"
+          showFirstLastButtons
+        ></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

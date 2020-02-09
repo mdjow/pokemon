@@ -1,0 +1,47 @@
+.main-detail {
+  height: 280px;
+  position: relative;
+}
+
+.pokemon-img {
+  width: 250px;
+}
+
+.spinner-container {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.spinner-load {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  animation: rotation 8s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(2259deg);
+  }
+}
+
+.info {
+  text-align: center;
+}
+
+.animation-transition {
+  transition: all .8s;
+}
+
+.animation-load-transition {
+  transition: all .2s;
+}
