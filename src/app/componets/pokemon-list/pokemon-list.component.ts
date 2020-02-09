@@ -41,17 +41,16 @@ export class PokemonListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private store: Store<{data: State}>) {
-    store.dispatch(new PokemonActions.InitPokemon());
-    this.init = store.select(state => state.data);
+  constructor(private _store: Store<{data: State}>) {
+    _store.dispatch(new PokemonActions.InitPokemon());
+    this.init = _store.select(state => state.data);
   }
 
   ngOnInit() {
     this.load = false;
     this.init.subscribe(x => {
-
       if (x.size && x.pokemons.length == 0) {
-        this.store.dispatch(new PokemonActions.GetPokemons(x.size));
+        this._store.dispatch(new PokemonActions.GetPokemons(x.size));
       }
 
       if (x.pokemons.length > 0 && this.data.length == 0) {
@@ -66,7 +65,6 @@ export class PokemonListComponent implements OnInit {
 
         this.load = true;
       }
-
     });
 
     this.paginatorSize = [5, 10, 20];

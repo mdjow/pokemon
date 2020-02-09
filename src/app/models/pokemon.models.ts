@@ -10,8 +10,18 @@ export interface Pokemon {
   url: string;
 }
 
+export interface Abilitie {
+  ability: Pokemon;
+  name: string;
+  url: string;
+}
+
+export interface PokemonType {
+  type: Pokemon;
+}
+
 export interface PokeDetail {
-  abilities: any[];
+  abilities: Abilitie[];
   forms: any[];
   gameIndices: any[];
   height: number;
@@ -25,7 +35,7 @@ export interface PokeDetail {
   species: Pokemon;
   sprites: any;
   stats: any[];
-  types: any[];
+  types: PokemonType[];
   weight: number;
   img: string;
   isFavorite: Boolean;

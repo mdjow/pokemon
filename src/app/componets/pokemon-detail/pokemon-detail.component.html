@@ -28,6 +28,20 @@
         </li>
         <li class="list-group-item">Altura: {{ myPoke.height }}</li>
         <li class="list-group-item">Peso: {{ myPoke.weight }}</li>
+        <li class="list-group-item">Habilidades:
+          <span class="m-1 badge badge-light"
+            *ngFor="let abilitie of myPoke.abilities"
+          >
+            {{abilitie.ability.name}}
+          </span>
+        </li>
+        <li class="list-group-item">Tipo:
+          <span class="m-1 badge badge-info"
+            *ngFor="let type of myPoke.types"
+          >
+            {{type.type.name}}
+          </span>
+        </li>
       </ul>
     </div>
   </div>

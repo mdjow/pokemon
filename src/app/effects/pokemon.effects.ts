@@ -11,15 +11,15 @@ import { PokemonService } from '../services/pokemon.service';
 export class PokemonEffects {
 
   constructor(
-    private actions$: Actions,
-    private pokemonService: PokemonService
+    private _actions$: Actions,
+    private _pokemonService: PokemonService
   ) { }
 
-  @Effect() initPokemon$: Observable<Action> = this.actions$.pipe(
+  @Effect() initPokemon$: Observable<Action> = this._actions$.pipe(
     ofType<PokemonActions.InitPokemon>(
       PokemonActions.INIT_POKEMON
     ),
-    switchMap(action => this.pokemonService.init().pipe(
+    switchMap(action => this._pokemonService.init().pipe(
       map(
         items => new PokemonActions.InitPokemonDone(items)
       ),
@@ -29,11 +29,11 @@ export class PokemonEffects {
     ))
   )
 
-  @Effect() getPokemons$: Observable<Action> = this.actions$.pipe(
+  @Effect() getPokemons$: Observable<Action> = this._actions$.pipe(
     ofType<PokemonActions.GetPokemons>(
       PokemonActions.GET_POKEMONS
     ),
-    switchMap(action => this.pokemonService.getPokemons(action.payload).pipe(
+    switchMap(action => this._pokemonService.getPokemons(action.payload).pipe(
       map(
         items => new PokemonActions.GetPokemonsDone(items)
       ),
@@ -43,11 +43,11 @@ export class PokemonEffects {
     ))
   )
 
-  @Effect() getPokemon$: Observable<Action> = this.actions$.pipe(
+  @Effect() getPokemon$: Observable<Action> = this._actions$.pipe(
     ofType<PokemonActions.GetPokemon>(
       PokemonActions.GET_POKEMON
     ),
-    switchMap(action => this.pokemonService.getPokemon(action.payload).pipe(
+    switchMap(action => this._pokemonService.getPokemon(action.payload).pipe(
       map(
         item => new PokemonActions.GetPokemonDone({
           ...item,
@@ -61,11 +61,11 @@ export class PokemonEffects {
     ))
   )
 
-  @Effect() favoritePokemon$: Observable<Action> = this.actions$.pipe(
+  @Effect() favoritePokemon$: Observable<Action> = this._actions$.pipe(
     ofType<PokemonActions.FavoritePokemon>(
       PokemonActions.FAVORITE_POKEMON
     ),
-    switchMap(action => this.pokemonService.favoritePokemon(action.payload).pipe(
+    switchMap(action => this._pokemonService.favoritePokemon(action.payload).pipe(
       map(
         item => new PokemonActions.FavoritePokemonDone(item)
       ),

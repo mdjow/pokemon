@@ -16,7 +16,7 @@ import { PokemonDetailComponent } from "./pokemon-detail/pokemon-detail.componen
   ],
   declarations: [
     PokemonListComponent,
-    PokemonDetailComponent
+    PokemonDetailComponent,
   ],
 })
 export class PokemonModule { }
